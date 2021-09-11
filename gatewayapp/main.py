@@ -1,4 +1,4 @@
-from essentialImports import *
+from gatewayapp.essentialImports import *
 
 def job(client,obj,msg):
     # This callback will only be called for messages with topics that match
@@ -260,7 +260,7 @@ if __name__=='__main__':
 
     #-------  MAIN THREAD Section --------------------------------------------------------------------
     while True:
-        if prev_HOST!=HOST or prev_PORT!=PORT:
+        if (prev_HOST!=HOST or prev_PORT!=PORT) and C_STATUS=='Active':
             print("-"*20)
             print("Server setting")
             if chgEvent.isSet():
