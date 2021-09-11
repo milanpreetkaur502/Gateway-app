@@ -11,10 +11,4 @@ setup(
     package_data={
         'src': ['mydatabasenew.db', 'require.txt']
     },
-    entry_points={
-        'console_scripts': [
-            'main=src.main:main',
-        ]
-    },
-    requires=['flask','bluepy','paho-mqtt','sqlite3','json']
 )
