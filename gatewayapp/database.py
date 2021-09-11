@@ -11,7 +11,7 @@ class tables():
         print("table created")
 
     def __init__(self):
-        self.conn = sqlite3.connect('/home/lab/gateway/Gateway_POC/mydatabasenew.db',check_same_thread=False)
+        self.conn = sqlite3.connect('/usr/sbin/mydatabasenew.db',check_same_thread=False)
 
     def calltable(self):
         val1 = (' (Key  int ,Id varchar(20) , Name varchar(20) , IPv4 varchar(20) , Interface varchar(20) , Status varchar(20)) ')
