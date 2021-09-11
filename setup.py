@@ -9,6 +9,6 @@ setup(
     keywords= ["Bluetooth","BLE","IoT","IoT gateway"],
     packages=["src"],
     package_data={
-        'src': ['mydatabasenew.db', 'require.txt']
+        'src': ['mydatabasenew.db']
     },
 )
