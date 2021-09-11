@@ -1,8 +1,8 @@
 
 
-import sys
-import src.main
-import src.essentialImports
+import gatewayapp
+import gatewayapp.main
+import gatewayapp.essentialImports
 
 if __name__ == '__main__':
-    sys.exit(src.main.main())
+    sys.exit(gatewayapp.main.main())
