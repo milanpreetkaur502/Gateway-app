@@ -8,7 +8,7 @@ Description=Gateway Application
 
 [Service]
 #Command to execute when the service is started
-ExecStart=/usr/bin/python3 /usr/sbin/Client_man.py
+ExecStart=/usr/bin/python3 /usr/sbin/gateway.py
 
 # Disable Python's buffering of STDOUT and STDERR, so that output from the
 # service shows up immediately in systemd's logs
