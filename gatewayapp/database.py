@@ -11,14 +11,19 @@ class tables():
         print("table created")
 
     def __init__(self):
-        self.conn = sqlite3.connect('/usr/sbin/mydatabasenew.db',check_same_thread=False)
+        self.conn = sqlite3.connect('/home/lab/gateway/Gateway_POC/demo/gatewayMain/src/mydatabasenew.db',check_same_thread=False)
+        try:
+            self.conn.execute('select * from Cloud')
+        except:
+            self.calltable()
+            self.callputdata()
 
     def calltable(self):
         val1 = (' (Key  int ,Id varchar(20) , Name varchar(20) , IPv4 varchar(20) , Interface varchar(20) , Status varchar(20)) ')
         val2 = (' ( key int ,ServerType varchar(20) ,Ip varchar(100) , Port varchar(20) , C_Status varchar(20) , TOPIC varchar(40), PUBFLAG varchar(20)) ')
         val3 = (' (key int ,ScaneRate varchar(20)  , N_Status varchar(20) , I_Status varchar(20) ) ')
-        val4 = ('(Id int , MacAdd varchar(20) , rssi varchar(20) , PhyConfig varchar(20) , Config varchar(20) , Accerlometer_X varchar(20) , Accerlometer_Y varchar(20) , Accerlometer_Z varchar(20) , date varchar(20) )')
-        val5 = ('(Id int , MacAdd varchar(20) , rssi varchar(20) , PhyConfig varchar(20) , Config varchar(20) , Accerlometer_X varchar(20) , Accerlometer_Y varchar(20) , Accerlometer_Z varchar(20) , date varchar(20))')
+        val4 = ('(Id int , MacAdd varchar(20) , rssi varchar(20) , value varchar(20) , sensorType varchar(20) , date varchar(20) )')
+        val5 = ('(Id int , MacAdd varchar(20) , rssi varchar(20) , value varchar(20) , sensorType varchar(20) , date varchar(20))')
 
         self.createTable('Device', val1)
         self.createTable('Cloud', val2)
@@ -82,11 +87,11 @@ class tables():
 
 
     def callputdata(self):
-        self.putdata('Device', ('1', '1100110011', 'Test Device', '172.23.0.26', 'ETHERNET', 'Active'))
-        self.putdata('Cloud', ('1','Unsecured', '0.0.0.0', '8883', 'Active','Dummy','False'))
-        self.putdata('Node', ('1' ,'3', 'Active', 'Active'))
-        self.putdata('HistoricalData', ('1', '1100110011', 'Test Device', '172.23.0.26', 'ETHERNET', '20' , '20' , '20' ,'2021-09-03'))
-        self.putdata('OfflineData', ('1', '1100110011', 'Test Device', '172.23.0.26', 'ETHERNET', '20' , '20' , '20' ,'2021-09-03'))
+        self.putdata('Device', ('1', '1100110011', 'Test Device', '172.23.0.26', 'ETHERNET', 'Inactive'))
+        self.putdata('Cloud', ('1','custom', '0.0.0.0', '8883', 'Inactive','beacon','False'))
+        self.putdata('Node', ('1' ,'3', 'Inactive', 'Inactive'))
+        #self.putdata('HistoricalData', ('1', '1100110011', 'Test Device', '172.23.0.26', 'ETHERNET', '20' , '20' , '20' ,'2021-09-03'))
+        #self.putdata('OfflineData', ('1', '1100110011', 'Test Device', '172.23.0.26', 'ETHERNET', '20' , '20' , '20' ,'2021-09-03'))
 
 
     def deletetable(self,tablename):
@@ -96,10 +101,10 @@ class tables():
 
 
     def updatetable(self,tablename, c, v):
-        print('hmmmmmmm')
+        #print('hmmmmmmm')
         try:
             p = f"update {tablename} set {c} = '{v}' where Key = 1"
-            print('hmmm')
+            #print('hmmm')
             self.conn.execute(p)
             self.conn.commit()
         except Exception as e:
@@ -109,7 +114,7 @@ class tables():
 
     def putdatabeacon(self,tablevalue, data):
         try:
-            query = f'insert into {tablevalue} (MacAdd , rssi ,PhyConfig ,Config  , Accerlometer_X , Accerlometer_Y , Accerlometer_Z ,date) values {data}'
+            query = f'insert into {tablevalue} (MacAdd , rssi  , value , sensorType ,date) values {data}'
             print(query)
             self.conn.execute(query)
             self.conn.commit()

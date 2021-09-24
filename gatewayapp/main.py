@@ -1,4 +1,4 @@
-from gatewayapp.essentialImports import *
+from essentialImports import *
 
 def job(client,obj,msg):
     # This callback will only be called for messages with topics that match
@@ -71,9 +71,8 @@ def cloud():
                 now=datetime.now()
                 dt = {'t_stmp' : int(datetime.timestamp(now)),
                     't_utc' : now.strftime("%d/%m/%Y, %H:%M:%S"),
-                    'x' : dev['Accelerometer(x)'],
-                    'y' : dev['Accelerometer(y)'],
-                    'z' : dev['Accelerometer(z)'],
+                    'value' : dev['value'],
+                    'sensorType' : dev['sensorType'],
                     'MAC' : dev['MAC'],
                     'MACTYPE' : dev['MACTYPE'],
                     'RSSI' : dev['RSSI']
@@ -83,7 +82,7 @@ def cloud():
                     publishData(client,dt,TOPIC,'True',mainBuffer,SERVER_TYPE)
                 elif SERVER_TYPE == 'aws':
                     publishData(client,dt,TOPIC,PUBFLAG,mainBuffer,SERVER_TYPE)
-        time.sleep(3)
+        time.sleep(0.01)
 
 def dbMaster():
     print("DB Started")
@@ -158,10 +157,11 @@ def nodeMaster():
             payl=app_node(SCAN_TIME)
             if payl!=None:
                 q.append(payl)
+                print(len(q))
         time.sleep(1)
 
 def main():
-    
+
     mainBuffer={'cloud':deque([]),'monitor':deque([]),'dbCmnd':deque([]),'nodeCmnd':deque([])}
 
     #-------------------- GLOBAL VARIABLES  ------------------------------------------------------------
@@ -260,7 +260,7 @@ if __name__=='__main__':
 
     #-------  MAIN THREAD Section --------------------------------------------------------------------
     while True:
-        if (prev_HOST!=HOST or prev_PORT!=PORT) and C_STATUS=='Active':
+        if prev_HOST!=HOST or prev_PORT!=PORT:
             print("-"*20)
             print("Server setting")
             if chgEvent.isSet():
@@ -281,5 +281,3 @@ if __name__=='__main__':
             print("-"*20)
         time.sleep(1)
     #-------------------------------------------------------------------------------------------------
-
-
