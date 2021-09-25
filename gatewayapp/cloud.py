@@ -12,10 +12,11 @@ from datetime import datetime
 
 #from node import app_node
 
-path=(__file__).split('/')
-path.pop()
-path="/".join(path)
-path=path+'/certUploads/'
+#path=(__file__).split('/')
+#path.pop()
+#path="/".join(path)
+#path=path+'/certUploads/'
+path='/usr/sbin/certUploads/'
 print(path)
 
 IoT_protocol_name = "x-amzn-mqtt-ca"
