@@ -1,4 +1,4 @@
-from essentialImports import *
+from gatewayapp.essentialImports import *
 
 def job(client,obj,msg):
     # This callback will only be called for messages with topics that match
